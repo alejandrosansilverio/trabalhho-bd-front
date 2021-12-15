@@ -1,0 +1,48 @@
+<mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile [colspan]="flagCarregaGrafico ? 2 : 4" [rowspan]="3">
+        <mat-card>
+            <mat-card-title>Informações Gráficas</mat-card-title>
+            <form [formGroup]="dataSearch">
+                <mat-form-field>
+                    <mat-label>Selecione o Ativo</mat-label>
+                    <mat-select formControlName="simbolo">
+                        <mat-option *ngFor="let c of corporations" [value]="c.simbolo">{{c.simbolo}}</mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+
+                <mat-form-field>
+                    <mat-label>Selecione o Período</mat-label>
+                    <mat-select formControlName="periodo">
+                        <mat-option value="0">Diário</mat-option>
+                        <mat-option value="1">Semanal</mat-option>
+                        <mat-option value="2">Mensal</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            <button mat-button (click)="limparPesquisa()" color="warn">Limpar</button>
+            <button mat-raised-button (click)="resolve()" [disabled]="!dataSearch.valid" color="primary"
+                style="float: right;">Pesquisar</button><br><br>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="3">
+        <mat-card class="example-card" *ngIf="flagCarregaGrafico" style="float: left">
+                <mat-card-title-group>
+                  <mat-card-title>{{corporation.nome}}</mat-card-title>
+                  <mat-card-subtitle>{{corporation.simbolo}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-content>
+                    <p>Setor: {{corporation.setor}}</p>
+                    <p>Industria: {{corporation.industria}}</p>
+
+                  {{corporation.descricao}}
+                </mat-card-content>
+        </mat-card>
+
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4" [rowspan]="3">
+        <google-chart *ngIf="flagCarregaGrafico" [title]="title" [type]="type" [data]="data" [columns]="columnNames"
+            [options]="options" [width]="width" [height]="height" style="margin-left: 50px;">
+        </google-chart>
+        <br>
+    </mat-grid-tile>
+</mat-grid-list>

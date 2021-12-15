@@ -1,0 +1,13 @@
+.center{
+    margin:auto
+}
+
+.mat-card{
+    width: 200px;
+    margin: auto;
+}
+
+.example-card{
+    width: 100%;
+    height: 100%;
+}
